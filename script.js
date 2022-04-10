@@ -9,11 +9,13 @@ let recuperarPersonaje;
 //adquiere desde Local Storage con y sin JSON el personaje seleccionado y sus caracteristicas para mostrarlas
 
 let persoFondo = document.getElementById('personajeSeleccionado');
-persoFondo.innerHTML = localStorage.getItem("personaje") || "Homero Simpsons"; 
+persoFondo.innerHTML = localStorage.getItem("personaje") || "Homero Simpsons";
 
 // OPTIMIZACION: USO DE OPERADOR LOGICO OR
 
-//asigna Homero si no se selecciona alguno. //eleccion background de acuerdo a personaje selecionado
+//asigna Homero si no se selecciona alguno. 
+//eleccion background de acuerdo a personaje selecionado
+
 switch (localStorage.getItem("personaje")) {
 
     case 'Homero Simpson':
@@ -39,13 +41,13 @@ switch (localStorage.getItem("personaje")) {
 let botonMostrar = document.getElementById('muestraPersonaje');
 botonMostrar.addEventListener("click", mostrar)
 
-function mostrar() {
+function mostrar() { //USO JSON
 
     recuperarPersonaje = JSON.parse(localStorage.getItem("personajeDatos"));
-    
+
     // OPTIMIZACION: USO DE DESESTRUCTURACION
 
-    let {edad, ocupacion, personalidad} = recuperarPersonaje;
+    let { edad, ocupacion, personalidad } = recuperarPersonaje;
 
     document.getElementById('muestralo1').innerHTML = edad;
     document.getElementById('muestralo2').innerHTML = ocupacion;
@@ -90,31 +92,24 @@ let vidasRestantes = 7;
 let puntaje = 0;
 
 function jugando() {
-    let letraIngresada = document.getElementById('letraUsuario');
-    let letra = letraIngresada.value;
+    let letraIngresada = document.getElementById('pantalla');
     let i = 0;
     let laLetraNoEsta = true; //para ciclo cuenta de vidas
-    let record = [];
-
+    
     //verifica si la letra existe en palabra
 
     for (let i = 0; i < letrasArray.length; i++) {
         if (letrasArray[i] == letraIngresada.value) {
             completandoPalabra[i] = letraIngresada.value;
-            record.push(i);
             laLetraNoEsta = false;
-            puntaje = puntaje + (record.length * 10);
-
-            document.getElementById('puntajeActual').innerHTML = puntaje;
+    
             document.getElementById('palabraAdivina').innerHTML = completandoPalabra.join('');
             document.getElementById('mensajeUsuario').innerHTML = "Muy bien, tenemos coincidencias"
             document.getElementById('segundoMensaje').innerHTML = "Ingresa la siguiente letra"
 
             if ((completandoPalabra.includes(' _ ')) != true) {
                 ganaste();
-                puntaje = puntaje + 50;
-                document.getElementById('puntajeActual').innerHTML = puntaje;
-            }
+                }
         }
     }
     if (laLetraNoEsta) {
