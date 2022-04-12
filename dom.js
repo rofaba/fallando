@@ -59,6 +59,8 @@ function seleccionarHomero() {
     nuevoTexto.innerHTML = 'Click en Jugar para empezar';
     localStorage.setItem("personaje", 'Homero Simpson');
     localStorage.setItem('personajeDatos', perso1Guardado);
+    let seleccion = document.getElementById("seleccion");
+    seleccion.classList.add("tracking-in-expand-fwd-top");
 }
 function seleccionarBart() {
     fotoSelect.src = "imagenes/personajeBart.jpg";
@@ -66,6 +68,8 @@ function seleccionarBart() {
     nuevoTexto.innerHTML = 'Click en Jugar para empezar';
     localStorage.setItem("personaje", 'Bart Simpson');
     localStorage.setItem('personajeDatos', perso2Guardado);
+    let seleccion = document.getElementById("seleccion");
+    seleccion.classList.add("tracking-in-expand-fwd-top");
 }
 function seleccionarLisa() {
     fotoSelect.src = "imagenes/personajeLisa.jpeg";
@@ -73,6 +77,8 @@ function seleccionarLisa() {
     nuevoTexto.innerHTML = 'Click en Jugar para empezar';
     localStorage.setItem("personaje", 'Lisa Simpson');
     localStorage.setItem('personajeDatos', perso3Guardado);
+    let seleccion = document.getElementById("seleccion");
+    seleccion.classList.add("tracking-in-expand-fwd-top");
 }
 tarjeta1.addEventListener("click", seleccionarHomero);
 tarjeta2.addEventListener("click", seleccionarBart);
