@@ -21,7 +21,7 @@ switch (localStorage.getItem("personaje")) {
     case 'Homero Simpson':
         document.body.style.backgroundImage = "url('./imagenes/fondoHomero.jpg')";
         document.getElementById('jugando').src = './imagenes/homeroInicial.webp';
-       
+
         break;
 
     case 'Bart Simpson':
@@ -48,7 +48,11 @@ function mostrar() { //USO JSON
 
     // OPTIMIZACION: USO DE DESESTRUCTURACION
 
-    let { edad, ocupacion, personalidad } = recuperarPersonaje;
+    let {
+        edad,
+        ocupacion,
+        personalidad
+    } = recuperarPersonaje;
 
     document.getElementById('muestralo1').innerHTML = edad;
     document.getElementById('muestralo2').innerHTML = ocupacion;
@@ -80,7 +84,7 @@ const letrasArray = [...palabraSeleccionada]; //transforma el string en array
 //OPTIMIZACION: USO OPERADOR SPREAD
 
 let completandoPalabra = [];
-for (let i = 0; i < letrasArray.length; i++) { 
+for (let i = 0; i < letrasArray.length; i++) {
     completandoPalabra.push(' _ ');
 }
 
@@ -92,30 +96,38 @@ jugar.addEventListener('click', jugando); //lanza la función
 let vidasRestantes = 7;
 let puntaje = 0;
 letrasFallidas = [];
+
+let letraIngresada = document.getElementById('pantalla');
+
+// if (letrasFallidas.include(letraIngresada.value)) {
+//     alert("letra repetida, no estaba en tu palabra");
+// }
+
 function jugando() {
-    let letraIngresada = document.getElementById('pantalla');
+
+    letraIngresada = document.getElementById('pantalla');
     let i = 0;
     let laLetraNoEsta = true; //para ciclo cuenta de vidas
     let falla;
     //verifica si la letra existe en palabra
 
     for (let i = 0; i < letrasArray.length; i++) {
-        
+
         if (letrasArray[i] == letraIngresada.value) {
             completandoPalabra[i] = letraIngresada.value;
             laLetraNoEsta = false;
-    
+
             document.getElementById('palabraAdivina').innerHTML = completandoPalabra.join('');
             document.getElementById('mensajeUsuario').innerHTML = "Muy bien, tenemos coincidencias"
             document.getElementById('segundoMensaje').innerHTML = "Ingresa la siguiente letra"
 
             if ((completandoPalabra.includes(' _ ')) != true) {
                 ganaste();
-                }
+            }
         }
     }
     if (laLetraNoEsta) {
-       
+
         vidasRestantes--; //OPTIMIZACION: USO OPERADOR --
         letrasFallidas.push(letraIngresada.value);
         let mostrarFallas = document.getElementById('letrasFallidas');
@@ -123,33 +135,33 @@ function jugando() {
         document.getElementById('numeroVidas').innerHTML = vidasRestantes;
         document.getElementById('mensajeUsuario').innerHTML = "Esa letra no está en tu palabra"
         document.getElementById('segundoMensaje').innerHTML = "En la próxima tendrás mejor suerte, vamos!"
-        
-}
-vidasRestantes == 2 && imagenMediaVida();   
-vidasRestantes == 0 && perdiste();  //OPTIMIZACION USO OPERADOR LOGICO AND
 
-    
+    }
+    vidasRestantes == 2 && imagenMediaVida();
+    vidasRestantes == 0 && perdiste(); //OPTIMIZACION USO OPERADOR LOGICO AND
+
+
 }
 
 function perdiste() {
     falla = document.getElementById("jugando");
     falla.classList.add("shake-horizontal");
-    
+
     imagenPerdiste();
-    
+
     let mensajeFinal = document.getElementById('pantalla');
     let mensajeFinalDos = document.getElementById('botonInicio');
     let mensajeInferior = document.getElementById('mensajeUsuario');
     let mensajeInferiorDos = document.getElementById('segundoMensaje')
     let marco = document.getElementsByClassName('mensajesJuego');
     let teclado = document.getElementById('container');
-    
+
     teclado.style.display = "none";
 
     mensajeFinal.style.display = "none";
     mensajeFinalDos.style.display = "none";
 
-    
+
     mensajeInferior.innerHTML = " PERDISTE ";
     mensajeInferiorDos.innerHTML = `tu palabra era ${palabraSeleccionada}`;
     mensajeInferior.style.fontSize = "4rem";
@@ -165,38 +177,41 @@ function ganaste() {
     let mensajeInferior = document.getElementById('mensajeUsuario');
     let mensajeInferiorDos = document.getElementById('segundoMensaje')
     let teclado = document.getElementById('container');
-    
+
     imagenGanaste();
 
     teclado.style.display = "none";
     mensajeFinal.style.display = "none";
     mensajeFinalDos.style.display = "none";
+    mensajeInferior.classList.add("text-pop-up-top");
     mensajeInferior.innerHTML = " GANASTE ";
+
+
     mensajeInferiorDos.innerHTML = "FELICITACIONES!"
-    mensajeInferior.style.fontSize = "4rem";
-    mensajeInferior.style.color = "green";
-    mensajeInferiorDos.style.color = "green";
+    mensajeInferior.style.fontSize = "5rem";
+    mensajeInferior.style.color = "blue";
+    mensajeInferiorDos.style.color = "blue";
 }
 
-function imagenPerdiste () {
+function imagenPerdiste() {
     switch (localStorage.getItem("personaje")) {
 
         case 'Homero Simpson':
             falla = document.getElementById("jugando");
             falla.src = './imagenes/angry_homer.jpeg';
-           
+
             break;
-    
+
         case 'Bart Simpson':
             falla = document.getElementById("jugando");
             falla.src = './imagenes/mad_simpson.webp';
             break;
-    
+
         case 'Lisa Simpson':
             falla = document.getElementById("jugando");
             falla.src = './imagenes/lisa_looser.jpeg';
             break;
-    
+
         default:
             falla = document.getElementById("jugando");
             falla.src = './imagenes/angry_homer.jpeg'; //Homero por defecto
@@ -204,25 +219,26 @@ function imagenPerdiste () {
 
 
 }
+
 function imagenGanaste() {
     switch (localStorage.getItem("personaje")) {
 
         case 'Homero Simpson':
             falla = document.getElementById("jugando");
             falla.src = 'https://www.laguiadelvaron.com/wp-content/uploads/2019/01/simpson-gif-www.laguiadelvaron-2.gif';
-           
+
             break;
-    
+
         case 'Bart Simpson':
             falla = document.getElementById("jugando");
             falla.src = 'https://64.media.tumblr.com/a43e2ff78e09feef09bb718dc3501945/tumblr_nej8j2Gd701rvner1o1_500.gifv';
             break;
-    
+
         case 'Lisa Simpson':
             falla = document.getElementById("jugando");
             falla.src = 'https://c.tenor.com/LRGXeXjJkcgAAAAC/im-so-excited-lisa-simpson.gif';
             break;
-    
+
         default:
             falla = document.getElementById("jugando");
             falla.src = 'https://www.laguiadelvaron.com/wp-content/uploads/2019/01/simpson-gif-www.laguiadelvaron-2.gif'; //Homero por defecto
@@ -231,25 +247,25 @@ function imagenGanaste() {
 
 }
 
-function imagenMediaVida () {
+function imagenMediaVida() {
     switch (localStorage.getItem("personaje")) {
 
         case 'Homero Simpson':
             falla = document.getElementById("jugando");
             falla.src = './imagenes/homero_mediavida.png';
-           
+
             break;
-    
+
         case 'Bart Simpson':
             falla = document.getElementById("jugando");
             falla.src = './imagenes/bart_mediaVida.png';
             break;
-    
+
         case 'Lisa Simpson':
             falla = document.getElementById("jugando");
             falla.src = './imagenes/lisa_mediavida.jpeg';
             break;
-    
+
         default:
             falla = document.getElementById("jugando");
             falla.src = './imagenes/homero_mediavida.png'; //Homero por defecto
