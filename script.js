@@ -19,18 +19,18 @@ persoFondo.innerHTML = localStorage.getItem("personaje") || "Homero Simpsons";
 switch (localStorage.getItem("personaje")) {
 
     case 'Homero Simpson':
-        document.body.style.backgroundImage = "url('./imagenes/fondoHomero.jpg')";
+        document.body.style.backgroundImage = "url('./imagenes/fondoHomero-modified.jpg')";
         document.getElementById('jugando').src = './imagenes/homeroInicial.webp';
 
         break;
 
     case 'Bart Simpson':
-        document.body.style.backgroundImage = "url('./imagenes/fondoBart.webp')";
+        document.body.style.backgroundImage = "url('./imagenes/fondoBart-modified.webp')";
         document.getElementById('jugando').src = './imagenes/bartInicial.png';
         break;
 
     case 'Lisa Simpson':
-        document.body.style.backgroundImage = "url('./imagenes/fondoLisa.jpeg')";
+        document.body.style.backgroundImage = "url('./imagenes/fondoLisa-modified.jpeg')";
         document.getElementById('jugando').src = './imagenes/lisaInicial.png';
         break;
 
@@ -39,34 +39,44 @@ switch (localStorage.getItem("personaje")) {
         document.getElementById('jugando').src = './imagenes/homeroInicial.webp'; //Homero por defecto
 }
 
-let botonMostrar = document.getElementById('muestraPersonaje');
-botonMostrar.addEventListener("click", mostrar)
+// let botonMostrar = document.getElementById('muestraPersonaje');
+// botonMostrar.addEventListener("click", mostrar)
 
-function mostrar() { //USO JSON
+// function mostrar() { //USO JSON
 
-    recuperarPersonaje = JSON.parse(localStorage.getItem("personajeDatos"));
+//     recuperarPersonaje = JSON.parse(localStorage.getItem("personajeDatos"));
 
-    // OPTIMIZACION: USO DE DESESTRUCTURACION
+//     // OPTIMIZACION: USO DE DESESTRUCTURACION
 
-    let {
-        edad,
-        ocupacion,
-        personalidad
-    } = recuperarPersonaje;
+//     let {
+//         edad,
+//         ocupacion,
+//         personalidad
+//     } = recuperarPersonaje;
 
-    document.getElementById('muestralo1').innerHTML = edad;
-    document.getElementById('muestralo2').innerHTML = ocupacion;
-    document.getElementById('muestralo3').innerHTML = personalidad;
-}
+//     document.getElementById('muestralo1').innerHTML = edad;
+//     document.getElementById('muestralo2').innerHTML = ocupacion;
+//     document.getElementById('muestralo3').innerHTML = personalidad;
+// }
 
-let botonMostrar2 = document.getElementById('ocultaPersonaje');
-botonMostrar2.addEventListener("click", ocultar)
+// let botonMostrar2 = document.getElementById('ocultaPersonaje');
+// botonMostrar2.addEventListener("click", ocultar)
 
-function ocultar() {
-    document.getElementById('muestralo1').innerHTML = " ";
-    document.getElementById('muestralo2').innerHTML = " ";
-    document.getElementById('muestralo3').innerHTML = " ";
-}
+// function ocultar() {
+//     document.getElementById('muestralo1').innerHTML = " ";
+//     document.getElementById('muestralo2').innerHTML = " ";
+//     document.getElementById('muestralo3').innerHTML = " ";
+// }
+
+quote = document.getElementById('quotes');
+
+fetch("https://los-simpsons-quotes.herokuapp.com/v1/quotes")
+.then((response) => response.json())
+.then((data) => {
+    console.log(data)
+quote.innerHTML = `${data[0].quote} ", " ${data[0].author}`
+;
+})
 
 const poolPalabras = ['primera', 'probando', 'palabras', 'para', 'juego', 'colgado', 'ultima'];
 
@@ -96,12 +106,8 @@ jugar.addEventListener('click', jugando); //lanza la función
 let vidasRestantes = 7;
 let puntaje = 0;
 letrasFallidas = [];
-
+let usadasFalladas = [];
 let letraIngresada = document.getElementById('pantalla');
-
-// if (letrasFallidas.include(letraIngresada.value)) {
-//     alert("letra repetida, no estaba en tu palabra");
-// }
 
 function jugando() {
 
@@ -109,6 +115,15 @@ function jugando() {
     let i = 0;
     let laLetraNoEsta = true; //para ciclo cuenta de vidas
     let falla;
+
+//Acá se inhalbilita la letra para ser elegida nuevamente
+let letraGrande = (letraIngresada.value).toUpperCase();
+let teclaPulsada = document.getElementById(`letra${letraGrande}`);
+teclaPulsada.style.backgroundColor = 'grey';
+teclaPulsada.removeAttribute('onclick');
+teclaPulsada.classList.remove('borde');
+  
+
     //verifica si la letra existe en palabra
 
     for (let i = 0; i < letrasArray.length; i++) {
@@ -129,9 +144,10 @@ function jugando() {
     if (laLetraNoEsta) {
 
         vidasRestantes--; //OPTIMIZACION: USO OPERADOR --
-        letrasFallidas.push(letraIngresada.value);
-        let mostrarFallas = document.getElementById('letrasFallidas');
-        mostrarFallas.innerHTML = letrasFallidas.join("");
+               
+        // usadasFalladas = JSON.stringify(mostrarFallas);
+        // localStorage.setItem("falladas", usadasFalladas);
+        
         document.getElementById('numeroVidas').innerHTML = vidasRestantes;
         document.getElementById('mensajeUsuario').innerHTML = "Esa letra no está en tu palabra"
         document.getElementById('segundoMensaje').innerHTML = "En la próxima tendrás mejor suerte, vamos!"

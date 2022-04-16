@@ -29,25 +29,17 @@
             <div class="personajeEnJuego">
 
                 <h3 id="personajeSeleccionado"> personaje </h3>
-                <div class="botones">
-                    <button id="muestraPersonaje"> Ver personaje</button>
-                    <button id="ocultaPersonaje"> Ocultar personaje</button>
-                </div>
+
 
                 <section id="desafioJSON">
-                    <p id="muestralo1"></p>
-                    <p id="muestralo2"></p>
-                    <p id="muestralo3"></p>
+
+                    <p id="quotes"></p>
                 </section>
 
-            </div>
-            <div id="letrasUsadas">
-            <p id="anuncio">Letras Fallidas</p>    
-            <p id="letrasFallidas"> </p>
-            </div>
 
 
-        </div>
+
+            </div>
 
     </header>
 
@@ -60,49 +52,79 @@
                 <div class="personajeActivo">
                     <!-- imagen imteractiva depende del avance el juego -->
                     <img id="jugando" src="./imagenes/homer_blanco_negro.webp" alt="Personaje_en_Juego">
+                    
                 </div>
 
 
                 <div class="bloqueBusqueda">
-                    <h4 id="palabraAdivina"> ________ </h4>
 
-                            <form name = "container" id="container" >
-                            <input type="text" maxlength="1" id="pantalla" value=""> 
-                            <br>
-                            <button id="botonInicio" type="button"> Probar Letra </button> 
-                            <br>
-                            
-                            <input type="button" id= "letraA" value="a" onclick ="document.container.pantalla.value='a'">
-                            <input type="button" id= "letraB" value="b" onclick ="document.container.pantalla.value='b'">
-                            <input type="button" id= "letraC" value="c" onclick ="document.container.pantalla.value='c'">
-                            <input type="button" id= "letraD" value="d" onclick ="document.container.pantalla.value='d'">
-                            <input type="button" id= "letraE" value="e" onclick ="document.container.pantalla.value='e'">
-                            <input type="button" id= "letraF" value="f" onclick ="document.container.pantalla.value='f'">
-                            <input type="button" id= "letraG" value="g" onclick ="document.container.pantalla.value='g'">
-                            <input type="button" id= "letraH" value="h" onclick ="document.container.pantalla.value='h'">
-                            <input type="button" id= "letraI" value="i" onclick ="document.container.pantalla.value='i'">
-                            <input type="button" id= "letraJ" value="j" onclick ="document.container.pantalla.value='j'">
-                            <input type="button" id= "letraK" value="k" onclick ="document.container.pantalla.value='k'">
-                            <input type="button" id= "letraL" value="l" onclick ="document.container.pantalla.value='l'">
-                            <input type="button" id= "letraM" value="m" onclick ="document.container.pantalla.value='m'">
-                            <br> <br>
-                            <input type="button" id= "letraN" value="n" onclick="document.container.pantalla.value='n'">
-                            <input type="button" id= "letraO" value="o" onclick="document.container.pantalla.value='o'">
-                            <input type="button" id= "letraP" value="p" onclick="document.container.pantalla.value='p'">
-                            <input type="button" id= "letraQ" value="q" onclick="document.container.pantalla.value='q'">
-                            <input type="button" id= "letraR" value="r" onclick="document.container.pantalla.value='r'">
-                            <input type="button" id= "letraS" value="s" onclick="document.container.pantalla.value='s'">
-                            <input type="button" id= "letraT" value="t" onclick="document.container.pantalla.value='t'">
-                            <input type="button" id= "letraU" value="u" onclick="document.container.pantalla.value='u'">
-                            <input type="button" id= "letraV" value="v" onclick="document.container.pantalla.value='v'">
-                            <input type="button" id= "letraW" value="w" onclick="document.container.pantalla.value='w'">
-                            <input type="button" id= "letraX" value="x" onclick="document.container.pantalla.value='x'">
-                            <input type="button" id= "letraY" value="y" onclick="document.container.pantalla.value='y'">
-                            <input type="button" id= "letraZ" value="z" onclick="document.container.pantalla.value='z'">
-                                                     
-                        </form>
-        
-                        
+<div>
+                        <h4 id="palabraAdivina"> ________ </h4>
+                    </div>
+                    <form name="container" id="container">
+                        <input type="text" maxlength="1" id="pantalla" value="">
+                        <br>
+                        <button id="botonInicio" type="button"> Probar Letra </button>
+                        <br>
+
+                        <input type="button" id="letraA" class="borde" value="a"
+                            onclick="document.container.pantalla.value='a'">
+                        <input type="button" id="letraB" class="borde" value="b"
+                            onclick="document.container.pantalla.value='b'">
+                        <input type="button" id="letraC" class="borde" value="c"
+                            onclick="document.container.pantalla.value='c'">
+                        <input type="button" id="letraD" class="borde" value="d"
+                            onclick="document.container.pantalla.value='d'">
+                        <input type="button" id="letraE" class="borde" value="e"
+                            onclick="document.container.pantalla.value='e'">
+                        <input type="button" id="letraF" class="borde" value="f"
+                            onclick="document.container.pantalla.value='f'">
+                        <input type="button" id="letraG" class="borde" value="g"
+                            onclick="document.container.pantalla.value='g'">
+                        <input type="button" id="letraH" class="borde" value="h"
+                            onclick="document.container.pantalla.value='h'">
+                        <input type="button" id="letraI" class="borde" value="i"
+                            onclick="document.container.pantalla.value='i'">
+                        <br>
+                        <input type="button" id="letraJ" class="borde" value="j"
+                            onclick="document.container.pantalla.value='j'">
+                        <input type="button" id="letraK" class="borde" value="k"
+                            onclick="document.container.pantalla.value='k'">
+                        <input type="button" id="letraL" class="borde" value="l"
+                            onclick="document.container.pantalla.value='l'">
+                        <input type="button" id="letraM" class="borde" value="m"
+                            onclick="document.container.pantalla.value='m'">
+                        <input type="button" id="letraN" class="borde" value="n"
+                            onclick="document.container.pantalla.value='n'">
+                        <input type="button" id="letraO" class="borde" value="o"
+                            onclick="document.container.pantalla.value='o'">
+                        <input type="button" id="letraP" class="borde" value="p"
+                            onclick="document.container.pantalla.value='p'">
+                        <input type="button" id="letraQ" class="borde" value="q"
+                            onclick="document.container.pantalla.value='q'">
+                        <input type="button" id="letraR" class="borde" value="r"
+                            onclick="document.container.pantalla.value='r'">
+                        <br>
+                        <input type="button" id="letraS" class="borde" value="s"
+                            onclick="document.container.pantalla.value='s'">
+                        <input type="button" id="letraT" class="borde" value="t"
+                            onclick="document.container.pantalla.value='t'">
+                        <input type="button" id="letraU" class="borde" value="u"
+                            onclick="document.container.pantalla.value='u'">
+                        <input type="button" id="letraV" class="borde" value="v"
+                            onclick="document.container.pantalla.value='v'">
+                        <input type="button" id="letraW" class="borde" value="w"
+                            onclick="document.container.pantalla.value='w'">
+                        <input type="button" id="letraX" class="borde" value="x"
+                            onclick="document.container.pantalla.value='x'">
+                        <input type="button" id="letraY" class="borde" value="y"
+                            onclick="document.container.pantalla.value='y'">
+                        <input type="button" id="letraZ" class="borde" value="z"
+                            onclick="document.container.pantalla.value='z'">
+                        <input type="button" id="letraPP" class="borde" value=" ">
+                    </form>
+
+
                 </div>
             </div>
 
@@ -134,6 +156,8 @@
 
 
     <script src="./script.js"></script>
+    <script src="./css/api.js"> </script>
+
     <!-- <script src="./teclado.js"></script> -->
     <!-- <script src="./dom.js"> </script> -->
 
