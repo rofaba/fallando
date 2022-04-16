@@ -163,13 +163,14 @@ h2 {
   justify-content: space-evenly;
 
 }
-
 #personajeSeleccionado {
   font-family: "Hurricane", cursive;
   font-size: 6rem;
 }
 
-
+#quotes{
+  font-size: 1.3rem;
+}
 
 .contenedorBase {
   display: block;
@@ -195,45 +196,48 @@ h2 {
 }
 
 .personajeActivo {
-  display: flex;
-  justify-items: center;
+  justify-content: center;
   width: 30rem;
   height: 30rem;
-  margin-left: -12rem;
+  margin-left: -18rem;
   margin-right: 2rem;
-
+  border: solid black 5px;
 }
 
-.personajeActivo .img {
-
+#jugando {
+  width: 100%;
   height: 100%;
 }
 
+#palabraAdivina {
+  border: solid black 5px;
+  background-color: lightgrey;
+  width: 30rem; 
+  height: 8rem;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 4rem;
+  align-items: baseline;
+  padding-top: 2rem;
+  border-radius: 5%;
+  margin-left: -18rem 
+}
+
+
 .bloqueBusqueda {
   width: 40rem;
-  height: 30rem;
-  justify-content: space-around;
+  height: 25rem;
+  justify-content: center;
   align-items: center;
-
-  padding-top: 5rem;
+  padding-top: 2rem;
+  margin-left: 10rem;
 }
 
 .controles {
   justify-content: space-around;
   align-items: center;
 
-}
-
-#jugando {
-  width: 90%;
-  height: 90%;
-  border-radius: 5%;
-}
-
-.arrayPalabraSecreta {
-  width: 100%;
-  height: 5rem;
-  background-color: rgb(70, 66, 66);
 }
 
 .bloqueInferior {
@@ -247,18 +251,15 @@ h2 {
   border: solid 3px;
 }
 
-.muestraPalabra {
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  height: 7rem;
-  margin-top: 1rem;
-}
 
 #indicadorVidas {
   display: block;
   text-align: center;
   padding-left: 4rem;
   padding-top: 2rem;
-  font-size: 1.5rem;
+  font-size: 2.5rem; 
+  font-family: "Hurricane", cursive;
+  font-weight: bolder;
 }
 
 
@@ -299,14 +300,14 @@ background-color: #ffd90f;
   margin-left: 2rem;
 }
 
-
-
 .mensajesJuego {
-  height: 6rem;
-  margin-top: 2rem;
+  margin-left: 45rem;
+  width: 50rem;
+  height: 10rem;
   font-size: 2rem;
   display: block;
   text-align: center;
+  margin-bottom: 1rem;
 
 }
 
@@ -344,17 +345,7 @@ background-color: #ffd90f;
   
 }
 
-#palabraAdivina {
-  margin-top: -3rem;
-  height: 10rem;
-  text-align: center;
-  align-items: center;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  text-justify: center;
-  text-transform: uppercase;
-  font-size: 5rem;
-  align-items: baseline;
-}
+
 
 #probando {
   height: 8rem;
@@ -368,7 +359,7 @@ background-color: #ffd90f;
 #desafioJSON {
   display: flex;
   text-align: center;
-  
+
 }
 
 .tracking-in-expand-fwd-top {

@@ -5,7 +5,7 @@ let caracter;
 let personaje;
 let datosPersonaje;
 let recuperarPersonaje;
-
+let contadorAciertos = [];
 //adquiere desde Local Storage con y sin JSON el personaje seleccionado y sus caracteristicas para mostrarlas
 
 let persoFondo = document.getElementById('personajeSeleccionado');
@@ -71,12 +71,11 @@ switch (localStorage.getItem("personaje")) {
 quote = document.getElementById('quotes');
 
 fetch("https://los-simpsons-quotes.herokuapp.com/v1/quotes")
-.then((response) => response.json())
-.then((data) => {
-    console.log(data)
-quote.innerHTML = `${data[0].quote} ", " ${data[0].author}`
-;
-})
+    .then((response) => response.json())
+    .then((data) => {
+        console.log(data)
+        quote.innerHTML = `${data[0].quote}  -  ${data[0].author}`;
+    })
 
 const poolPalabras = ['primera', 'probando', 'palabras', 'para', 'juego', 'colgado', 'ultima'];
 
@@ -106,7 +105,7 @@ jugar.addEventListener('click', jugando); //lanza la función
 let vidasRestantes = 7;
 let puntaje = 0;
 letrasFallidas = [];
-let usadasFalladas = [];
+
 let letraIngresada = document.getElementById('pantalla');
 
 function jugando() {
@@ -116,13 +115,13 @@ function jugando() {
     let laLetraNoEsta = true; //para ciclo cuenta de vidas
     let falla;
 
-//Acá se inhalbilita la letra para ser elegida nuevamente
-let letraGrande = (letraIngresada.value).toUpperCase();
-let teclaPulsada = document.getElementById(`letra${letraGrande}`);
-teclaPulsada.style.backgroundColor = 'grey';
-teclaPulsada.removeAttribute('onclick');
-teclaPulsada.classList.remove('borde');
-  
+    //Acá se inhalbilita la letra para ser elegida nuevamente
+    let letraGrande = (letraIngresada.value).toUpperCase();
+    let teclaPulsada = document.getElementById(`letra${letraGrande}`);
+    teclaPulsada.style.backgroundColor = 'grey';
+    teclaPulsada.removeAttribute('onclick');
+    teclaPulsada.classList.remove('borde');
+
 
     //verifica si la letra existe en palabra
 
@@ -130,11 +129,29 @@ teclaPulsada.classList.remove('borde');
 
         if (letrasArray[i] == letraIngresada.value) {
             completandoPalabra[i] = letraIngresada.value;
+            contadorAciertos.push(letraIngresada.value);
+
             laLetraNoEsta = false;
+            let contador = contadorAciertos.length;
+
 
             document.getElementById('palabraAdivina').innerHTML = completandoPalabra.join('');
-            document.getElementById('mensajeUsuario').innerHTML = "Muy bien, tenemos coincidencias"
-            document.getElementById('segundoMensaje').innerHTML = "Ingresa la siguiente letra"
+            document.getElementById('mensajeUsuario').innerHTML = "Muy bien, la tenemos"
+            document.getElementById('segundoMensaje').innerHTML = "Ingresa otra letra"
+
+            if (contador > 2) {
+                document.getElementById('palabraAdivina').innerHTML = completandoPalabra.join('');
+                document.getElementById('mensajeUsuario').innerHTML = "Excelente, sigue así!"
+                document.getElementById('segundoMensaje').innerHTML = "Vamos por las otras letras"
+
+            }
+
+            if (contador > 4) {
+                document.getElementById('palabraAdivina').innerHTML = completandoPalabra.join('');
+                document.getElementById('mensajeUsuario').innerHTML = "Ya la tienes, eres muy bueno!"
+                document.getElementById('segundoMensaje').innerHTML = "Quedan menos, vamos por otra"
+
+            }
 
             if ((completandoPalabra.includes(' _ ')) != true) {
                 ganaste();
@@ -144,16 +161,30 @@ teclaPulsada.classList.remove('borde');
     if (laLetraNoEsta) {
 
         vidasRestantes--; //OPTIMIZACION: USO OPERADOR --
-               
-        // usadasFalladas = JSON.stringify(mostrarFallas);
-        // localStorage.setItem("falladas", usadasFalladas);
-        
+
         document.getElementById('numeroVidas').innerHTML = vidasRestantes;
         document.getElementById('mensajeUsuario').innerHTML = "Esa letra no está en tu palabra"
         document.getElementById('segundoMensaje').innerHTML = "En la próxima tendrás mejor suerte, vamos!"
 
+        if (vidasRestantes == 5) {
+            document.getElementById('numeroVidas').innerHTML = vidasRestantes;
+            document.getElementById('mensajeUsuario').innerHTML = "Tampoco está, elige con cuidado"
+            document.getElementById('segundoMensaje').innerHTML = "Vamos por otro intento."
+        }
+        if (vidasRestantes == 3) {
+            document.getElementById('numeroVidas').innerHTML = vidasRestantes;
+            document.getElementById('mensajeUsuario').innerHTML = "Ouch, todavía puedes"
+            document.getElementById('segundoMensaje').innerHTML = "Elige otra letra!"
+        }
+        if (vidasRestantes == 1) {
+            document.getElementById('numeroVidas').innerHTML = vidasRestantes;
+            document.getElementById('mensajeUsuario').innerHTML = "Nop, no estaba... te queda una opción."
+            document.getElementById('segundoMensaje').innerHTML = "No está muerto quién pelea. Vamos!"
+        }
     }
-    vidasRestantes == 2 && imagenMediaVida();
+    vidasRestantes == 5 && imagenSegunda();
+    vidasRestantes == 3 && imagenMediaVida();
+    vidasRestantes == 1 && imagenFinal();
     vidasRestantes == 0 && perdiste(); //OPTIMIZACION USO OPERADOR LOGICO AND
 
 
@@ -170,6 +201,7 @@ function perdiste() {
     let mensajeInferior = document.getElementById('mensajeUsuario');
     let mensajeInferiorDos = document.getElementById('segundoMensaje')
     let marco = document.getElementsByClassName('mensajesJuego');
+
     let teclado = document.getElementById('container');
 
     teclado.style.display = "none";
@@ -179,14 +211,15 @@ function perdiste() {
 
 
     mensajeInferior.innerHTML = " PERDISTE ";
-    mensajeInferiorDos.innerHTML = `tu palabra era ${palabraSeleccionada}`;
-    mensajeInferior.style.fontSize = "4rem";
+    let mostrarPalabraFinal = palabraSeleccionada.toUpperCase();
+    mensajeInferiorDos.innerHTML = `tu palabra era "${mostrarPalabraFinal}"`;
+    mensajeInferior.style.fontSize = "10rem";
     mensajeInferior.style.color = "red";
     mensajeInferiorDos.style.color = "red";
-
 }
 
 function ganaste() {
+
 
     let mensajeFinal = document.getElementById('pantalla');
     let mensajeFinalDos = document.getElementById('botonInicio');
@@ -201,10 +234,8 @@ function ganaste() {
     mensajeFinalDos.style.display = "none";
     mensajeInferior.classList.add("text-pop-up-top");
     mensajeInferior.innerHTML = " GANASTE ";
-
-
     mensajeInferiorDos.innerHTML = "FELICITACIONES!"
-    mensajeInferior.style.fontSize = "5rem";
+    mensajeInferior.style.fontSize = "10rem";
     mensajeInferior.style.color = "blue";
     mensajeInferiorDos.style.color = "blue";
 }
@@ -220,7 +251,7 @@ function imagenPerdiste() {
 
         case 'Bart Simpson':
             falla = document.getElementById("jugando");
-            falla.src = './imagenes/mad_simpson.webp';
+            falla.src = './imagenes/bart_pierde.jpeg';
             break;
 
         case 'Lisa Simpson':
@@ -268,13 +299,13 @@ function imagenMediaVida() {
 
         case 'Homero Simpson':
             falla = document.getElementById("jugando");
-            falla.src = './imagenes/homero_mediavida.png';
+            falla.src = './imagenes/homero_mediavida.gif';
 
             break;
 
         case 'Bart Simpson':
             falla = document.getElementById("jugando");
-            falla.src = './imagenes/bart_mediaVida.png';
+            falla.src = 'https://i.gifer.com/12rq.gif';
             break;
 
         case 'Lisa Simpson':
@@ -285,6 +316,59 @@ function imagenMediaVida() {
         default:
             falla = document.getElementById("jugando");
             falla.src = './imagenes/homero_mediavida.png'; //Homero por defecto
+    }
+
+
+}
+
+function imagenSegunda() {
+    switch (localStorage.getItem("personaje")) {
+
+        case 'Homero Simpson':
+            falla = document.getElementById("jugando");
+            falla.src = 'https://i.gifer.com/8kqy.gif';
+
+            break;
+
+        case 'Bart Simpson':
+            falla = document.getElementById("jugando");
+            falla.src = './imagenes/focusyn.webp';
+            break;
+
+        case 'Lisa Simpson':
+            falla = document.getElementById("jugando");
+            falla.src = './imagenes/lisa_piensa.jpeg';
+            break;
+
+        default:
+            falla = document.getElementById("jugando");
+            falla.src = 'https://i.gifer.com/8kqy.gif'; //Homero por defecto
+    }
+
+
+}
+function imagenFinal() {
+    switch (localStorage.getItem("personaje")) {
+
+        case 'Homero Simpson':
+            falla = document.getElementById("jugando");
+            falla.src = 'https://c.tenor.com/J8s7Y4Bu2qYAAAAC/the-end-is-near-homer.gif';
+
+            break;
+
+        case 'Bart Simpson':
+            falla = document.getElementById("jugando");
+            falla.src = 'https://i.gifer.com/Bpwv.gif';
+            break;
+
+        case 'Lisa Simpson':
+            falla = document.getElementById("jugando");
+            falla.src = './imagenes/lisa_pierde.png';
+            break;
+
+        default:
+            falla = document.getElementById("jugando");
+            falla.src = 'https://c.tenor.com/J8s7Y4Bu2qYAAAAC/the-end-is-near-homer.gif'; //Homero por defecto
     }
 
 
