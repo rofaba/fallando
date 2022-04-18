@@ -124,7 +124,7 @@ letraTrampa.addEventListener('mouseover', ofreceMuestra);
     Swal.fire({
         title: `${palabraEnMayusculas}`,
         text: `Es la palabra secreta`,
-        icon: 'success',
+        icon: 'info',
         confirmButtonText: 'Volver'
     })
 })
@@ -269,7 +269,7 @@ function ganaste() {
     mensajeFinalDos.style.display = "none";
     mensajeInferior.classList.add("text-pop-up-top");
     mensajeInferior.innerHTML = " GANASTE ";
-    mensajeInferiorDos.innerHTML = "FELICITACIONES!"
+    mensajeInferiorDos.innerHTML = "";
     mensajeInferior.style.fontSize = "10rem";
     mensajeInferior.style.color = "blue";
     mensajeInferiorDos.style.color = "blue";
