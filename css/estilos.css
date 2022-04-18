@@ -296,6 +296,10 @@ background-color: #ffd90f;
   
 }
 
+#letraPP:hover {
+  background-color: #ffd90f;
+}
+
 .iniciarJuego {
   height: 4rem;
   width: 10rem;

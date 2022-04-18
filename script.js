@@ -107,7 +107,8 @@ letraTrampa.addEventListener('mouseover', ofreceMuestra);
 
     document.getElementById('mensajeUsuario').innerHTML = " ¿ QUIERES VER LA SOLUCION ?";
     document.getElementById('segundoMensaje').innerHTML = "CLICK EN BOTON INTERROGACION";
- 
+    document.getElementById('mensajeUsuario').style.color = "red";
+    
 }
 
  letraTrampa.addEventListener('mouseleave', sacarMuestra);
@@ -115,12 +116,13 @@ letraTrampa.addEventListener('mouseover', ofreceMuestra);
 
     document.getElementById('mensajeUsuario').innerHTML = "Ingresa una letra para comenzar";
     document.getElementById('segundoMensaje').innerHTML = "Mucha suerte!";
+    document.getElementById('mensajeUsuario').style.color = "black";
  }
 
  letraTrampa.addEventListener('click', () => {
- 
+ let palabraEnMayusculas = palabraSeleccionada.toUpperCase();
     Swal.fire({
-        title: `${palabraSeleccionada}`,
+        title: `${palabraEnMayusculas}`,
         text: `Es la palabra secreta`,
         icon: 'success',
         confirmButtonText: 'Volver'
