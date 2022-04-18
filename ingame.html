@@ -113,7 +113,7 @@
                         onclick="document.container.pantalla.value='y'">
                     <input type="button" id="letraZ" class="borde" value="z"
                         onclick="document.container.pantalla.value='z'">
-                    <input type="button" id="letraPP" class="borde" value=" ">
+                    <input type="button" id="letraPP" class="" value="?" title = "Mostrar Palabra">
                 </form>
 
 
@@ -123,7 +123,7 @@
         <div class="mensajesJuego">
 
             <h3 id="mensajeUsuario"> Ingresa una letra para comenzar</h3>
-            <h3 id="segundoMensaje"> Suerte !!!</h3>
+            <h3 id="segundoMensaje"> Mucha suerte !!!</h3>
 
         </div>
 
@@ -132,17 +132,27 @@
 
             <div class='navegacion'>
 
-                <nav class="barraNav">
-                    <a href="./index.html" class="eleccion"> || Inicio ||</a>
-                    <a href="./personajes.html" class="eleccion"> Cambiar Personaje</a>
-                    <a href="./ingame.html" class="eleccion"> || Jugar ||</a>
-                </nav>
+                <nav class="botonera">
+
+                    <button class="barraNav">
+                    <a href="./index.html" class="eleccion">Inicio</a>
+                </button>
+                    <button class="barraNav">
+                    <a href="./personajes.html" class="eleccion">Cambiar Personaje</a>
+                </button>
+                    <button class="barraNav">
+                    <a href="./ingame.html" class="eleccion">Jugar</a> 
+                </button>
+                
+            </nav>
             </div>
         </nav>
 
     </main>
 
     <footer>Derechos Reservados</footer>
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
     <script src="./script.js"></script>

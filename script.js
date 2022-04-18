@@ -100,6 +100,38 @@ for (let i = 0; i < letrasArray.length; i++) {
 document.getElementById('palabraAdivina').innerHTML = completandoPalabra.join(''); //sacamos las comas
 
 //EMPEZANDO JUEGO
+let letraTrampa = document.getElementById('letraPP');
+
+letraTrampa.addEventListener('mouseover', ofreceMuestra);
+ function ofreceMuestra(){
+
+    document.getElementById('mensajeUsuario').innerHTML = " ¿ QUIERES VER LA SOLUCION ?";
+    document.getElementById('segundoMensaje').innerHTML = "CLICK EN BOTON INTERROGACION";
+ 
+}
+
+ letraTrampa.addEventListener('mouseleave', sacarMuestra);
+ function sacarMuestra(){
+
+    document.getElementById('mensajeUsuario').innerHTML = "Ingresa una letra para comenzar";
+    document.getElementById('segundoMensaje').innerHTML = "Mucha suerte!";
+ }
+
+ letraTrampa.addEventListener('click', () => {
+ 
+    Swal.fire({
+        title: `${palabraSeleccionada}`,
+        text: `Es la palabra secreta`,
+        icon: 'success',
+        confirmButtonText: 'Volver'
+    })
+})
+
+    function muestraPalabra(){
+        alert(palabraSeleccionada);       
+
+    }
+
 const jugar = document.getElementById('botonInicio');
 jugar.addEventListener('click', jugando); //lanza la función
 let vidasRestantes = 7;
@@ -121,7 +153,8 @@ function jugando() {
     teclaPulsada.style.backgroundColor = 'grey';
     teclaPulsada.removeAttribute('onclick');
     teclaPulsada.classList.remove('borde');
-
+    
+    
 
     //verifica si la letra existe en palabra
 
