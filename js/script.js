@@ -1,15 +1,17 @@
-//JUGANDO
+//PREPARACION DEL JUEGO
 /* Cree [poolPalabras] como Array base del juego, con la función (indexRandom) obtengo un número entero al azar y con ese número selecciono la palabras para jugar desde el array base */
+
 let caracter;
 let personaje;
 let datosPersonaje;
 let recuperarPersonaje;
 let contadorAciertos = [];
-let persoFondo = document.getElementById('personajeSeleccionado');
-persoFondo.innerHTML = localStorage.getItem("personaje") || "Homero Simpsons";
 
-//asigna Homero si no se selecciona alguno. 
-//eleccion background de acuerdo a personaje selecionado
+//este personaje se recupera desde el Local Storage, fue almacenado al alegir uno de los tres disponibles.
+let persoFondo = document.getElementById('personajeSeleccionado');
+persoFondo.innerHTML = localStorage.getItem("personaje") || "Homero Simpsons"; //asigna Homero si no se selecciona alguno. 
+
+//seleccion de background image de acuerdo a personaje selecionado
 
 switch (localStorage.getItem("personaje")) {
 
@@ -45,12 +47,13 @@ fetch("https://los-simpsons-quotes.herokuapp.com/v1/quotes")
         quote.innerHTML = `${data[0].quote}  -  ${data[0].author}`;
     })
 
+    //tenemos un pool de palabras
 const poolPalabras = [  'murcielago', 'homero', 'calendario', 'libreria', 'teclado',
                         'piscina', 'imperdible', 'tecnologia', 'favorito', 'television',
                         'periodico', 'coderhouse', 'javascript', 'videojuego', 'tiburon',
                         'almacen','bitcoin','escuela', 'facturas', 'huracan', 'bicicleta'];
 
-function indexRandom(minimo, maximo) { //fx reutilizable
+function indexRandom(minimo, maximo) { //fx reutilizable para numero al azar
     var numerosPosibles = maximo - minimo;
     var random = Math.random() * (numerosPosibles + 1);
     random = Math.floor(random); // transformación a nº entero
@@ -65,10 +68,10 @@ let completandoPalabra = [];
 for (let i = 0; i < letrasArray.length; i++) {
     completandoPalabra.push(' _ ');
 }
-document.getElementById('palabraAdivina').innerHTML = completandoPalabra.join('');
+document.getElementById('palabraAdivina').innerHTML = completandoPalabra.join(''); //la mostramos sin comas
 
 //EMPEZANDO JUEGO
-let letraTrampa = document.getElementById('letraPP');
+let letraTrampa = document.getElementById('letraPP'); //ofrece ver la solucion
 
 letraTrampa.addEventListener('mouseover', () => {
     document.getElementById('mensajeUsuario').innerHTML = " ¿ QUIERES VER LA SOLUCION ?";
@@ -83,7 +86,7 @@ letraTrampa.addEventListener('mouseleave', () => {
     document.getElementById('mensajeUsuario').style.color = "black";
 })
 
-letraTrampa.addEventListener('click', () => {
+letraTrampa.addEventListener('click', () => {        //uso librería sweetalert
     let palabraEnMayusculas = palabraSeleccionada.toUpperCase();
     Swal.fire({
         title: `${palabraEnMayusculas}`,
@@ -95,7 +98,7 @@ letraTrampa.addEventListener('click', () => {
 
 const jugar = document.getElementById('botonInicio');
 jugar.addEventListener('click', jugando); //inicia el juego
-let vidasRestantes = 7;
+let vidasRestantes = 10;
 let puntaje = 0;
 letrasFallidas = [];
 
@@ -126,7 +129,7 @@ function jugando() {
             laLetraNoEsta = false;
             let contador = contadorAciertos.length;
 
-
+            //mensajes avance juego
             document.getElementById('palabraAdivina').innerHTML = completandoPalabra.join('');
             document.getElementById('mensajeUsuario').innerHTML = "Muy bien, la tenemos"
             document.getElementById('segundoMensaje').innerHTML = "Ingresa otra letra"
@@ -156,7 +159,9 @@ function jugando() {
 
         document.getElementById('numeroVidas').innerHTML = vidasRestantes;
         document.getElementById('mensajeUsuario').innerHTML = "Esa letra no está en tu palabra"
-        document.getElementById('segundoMensaje').innerHTML = "En la próxima tendrás mejor suerte, vamos!"
+        document.getElementById('segundoMensaje').innerHTML = "La próxima será mejor, vamos!"
+
+        //mensajes si es que vamos perdiendo
 
         if (vidasRestantes == 5) {
             document.getElementById('numeroVidas').innerHTML = vidasRestantes;
@@ -171,9 +176,10 @@ function jugando() {
         if (vidasRestantes == 1) {
             document.getElementById('numeroVidas').innerHTML = vidasRestantes;
             document.getElementById('mensajeUsuario').innerHTML = "Nop, no estaba... te queda una opción."
-            document.getElementById('segundoMensaje').innerHTML = "No está muerto quién pelea. Vamos!"
+            document.getElementById('segundoMensaje').innerHTML = "No está muerto quién pelea!"
         }
     }
+    //sitemna de imagenes dinámicas 
     vidasRestantes == 5 && imagenSegunda();
     vidasRestantes == 3 && imagenMediaVida();
     vidasRestantes == 1 && imagenFinal();
@@ -188,9 +194,7 @@ function perdiste() {
     let mensajeInferior = document.getElementById('mensajeUsuario');
     let mensajeInferiorDos = document.getElementById('segundoMensaje')
     let teclado = document.getElementById('container');
-
     imagenPerdiste();
-
     document.querySelector('#botonInicio').style.display = ('none');
     mensajeInferior.classList.add("scale-in-center");
     mensajeInferior.innerHTML = " PERDISTE ☹  ";
@@ -206,16 +210,12 @@ function perdiste() {
 }
 
 function ganaste() {
-
-
     let mensajeFinal = document.getElementById('pantalla');
     let mensajeFinalDos = document.getElementById('botonInicio');
     let mensajeInferior = document.getElementById('mensajeUsuario');
     let mensajeInferiorDos = document.getElementById('segundoMensaje')
     let teclado = document.getElementById('container');
-
     imagenGanaste();
-
     document.querySelector('#botonInicio').style.display = ('none');
     mensajeInferior.classList.add("rotate-scale-up");
     mensajeInferior.innerHTML = " GANASTE  ツ ";
@@ -226,11 +226,9 @@ function ganaste() {
     mensajeInferiorDos.style.display = 'none';
     let apagaLetra = document.getElementById('letraPP');
     apagaLetra.style.display = "none";
-
-
 }
 
-function imagenPerdiste() {
+function imagenPerdiste() { //depende del personaje elegido
     switch (localStorage.getItem("personaje")) {
 
         case 'Homero Simpson':
@@ -278,13 +276,13 @@ function imagenGanaste() {
 
         default:
             falla = document.getElementById("jugando");
-            falla.src = 'https://www.laguiadelvaron.com/wp-content/uploads/2019/01/simpson-gif-www.laguiadelvaron-2.gif'; //Homero por defecto
+            falla.src = 'https://www.laguiadelvaron.com/wp-content/uploads/2019/01/simpson-gif-www.laguiadelvaron-2.gif';
     }
 
 
 }
 
-function imagenMediaVida() {
+function imagenMediaVida() { //idem
     switch (localStorage.getItem("personaje")) {
 
         case 'Homero Simpson':
