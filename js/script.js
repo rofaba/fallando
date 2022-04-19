@@ -1,17 +1,12 @@
 //JUGANDO
-
 /* Cree [poolPalabras] como Array base del juego, con la función (indexRandom) obtengo un número entero al azar y con ese número selecciono la palabras para jugar desde el array base */
 let caracter;
 let personaje;
 let datosPersonaje;
 let recuperarPersonaje;
 let contadorAciertos = [];
-//adquiere desde Local Storage con y sin JSON el personaje seleccionado y sus caracteristicas para mostrarlas
-
 let persoFondo = document.getElementById('personajeSeleccionado');
 persoFondo.innerHTML = localStorage.getItem("personaje") || "Homero Simpsons";
-
-// OPTIMIZACION: USO DE OPERADOR LOGICO OR
 
 //asigna Homero si no se selecciona alguno. 
 //eleccion background de acuerdo a personaje selecionado
@@ -39,34 +34,7 @@ switch (localStorage.getItem("personaje")) {
         document.getElementById('jugando').src = './imagenes/homeroInicial.webp'; //Homero por defecto
 }
 
-// let botonMostrar = document.getElementById('muestraPersonaje');
-// botonMostrar.addEventListener("click", mostrar)
-
-// function mostrar() { //USO JSON
-
-//     recuperarPersonaje = JSON.parse(localStorage.getItem("personajeDatos"));
-
-//     // OPTIMIZACION: USO DE DESESTRUCTURACION
-
-//     let {
-//         edad,
-//         ocupacion,
-//         personalidad
-//     } = recuperarPersonaje;
-
-//     document.getElementById('muestralo1').innerHTML = edad;
-//     document.getElementById('muestralo2').innerHTML = ocupacion;
-//     document.getElementById('muestralo3').innerHTML = personalidad;
-// }
-
-// let botonMostrar2 = document.getElementById('ocultaPersonaje');
-// botonMostrar2.addEventListener("click", ocultar)
-
-// function ocultar() {
-//     document.getElementById('muestralo1').innerHTML = " ";
-//     document.getElementById('muestralo2').innerHTML = " ";
-//     document.getElementById('muestralo3').innerHTML = " ";
-// }
+// Quote se obtiene desde una API y se muestra una diferente en cada nuevo juego
 
 quote = document.getElementById('quotes');
 
@@ -77,7 +45,10 @@ fetch("https://los-simpsons-quotes.herokuapp.com/v1/quotes")
         quote.innerHTML = `${data[0].quote}  -  ${data[0].author}`;
     })
 
-const poolPalabras = ['primera', 'probando', 'palabras', 'para', 'juego', 'colgado', 'ultima'];
+const poolPalabras = [  'murcielago', 'homero', 'calendario', 'libreria', 'teclado',
+                        'piscina', 'imperdible', 'tecnologia', 'favorito', 'television',
+                        'periodico', 'coderhouse', 'javascript', 'videojuego', 'tiburon',
+                        'almacen','bitcoin','escuela', 'facturas', 'huracan', 'bicicleta'];
 
 function indexRandom(minimo, maximo) { //fx reutilizable
     var numerosPosibles = maximo - minimo;
@@ -86,40 +57,31 @@ function indexRandom(minimo, maximo) { //fx reutilizable
     return minimo + random;
 }
 
-let numeroAleatorio = indexRandom(0, 6);
+let numeroAleatorio = indexRandom(0, 20);
 let palabraSeleccionada = poolPalabras[numeroAleatorio];
 const letrasArray = [...palabraSeleccionada]; //transforma el string en array
-
-//OPTIMIZACION: USO OPERADOR SPREAD
 
 let completandoPalabra = [];
 for (let i = 0; i < letrasArray.length; i++) {
     completandoPalabra.push(' _ ');
 }
-
-document.getElementById('palabraAdivina').innerHTML = completandoPalabra.join(''); //sacamos las comas
+document.getElementById('palabraAdivina').innerHTML = completandoPalabra.join('');
 
 //EMPEZANDO JUEGO
 let letraTrampa = document.getElementById('letraPP');
 
-letraTrampa.addEventListener('mouseover', ofreceMuestra);
-
-function ofreceMuestra() {
-
+letraTrampa.addEventListener('mouseover', () => {
     document.getElementById('mensajeUsuario').innerHTML = " ¿ QUIERES VER LA SOLUCION ?";
     document.getElementById('segundoMensaje').innerHTML = "CLICK EN BOTON INTERROGACION";
     document.getElementById('mensajeUsuario').style.color = "red";
 
-}
+})
 
-letraTrampa.addEventListener('mouseleave', sacarMuestra);
-
-function sacarMuestra() {
-
+letraTrampa.addEventListener('mouseleave', () => {
     document.getElementById('mensajeUsuario').innerHTML = "Ingresa una letra para comenzar";
     document.getElementById('segundoMensaje').innerHTML = "Mucha suerte!";
     document.getElementById('mensajeUsuario').style.color = "black";
-}
+})
 
 letraTrampa.addEventListener('click', () => {
     let palabraEnMayusculas = palabraSeleccionada.toUpperCase();
@@ -131,13 +93,8 @@ letraTrampa.addEventListener('click', () => {
     })
 })
 
-function muestraPalabra() {
-    alert(palabraSeleccionada);
-
-}
-
 const jugar = document.getElementById('botonInicio');
-jugar.addEventListener('click', jugando); //lanza la función
+jugar.addEventListener('click', jugando); //inicia el juego
 let vidasRestantes = 7;
 let puntaje = 0;
 letrasFallidas = [];
@@ -157,8 +114,6 @@ function jugando() {
     teclaPulsada.style.backgroundColor = 'grey';
     teclaPulsada.removeAttribute('onclick');
     teclaPulsada.classList.remove('borde');
-
-
 
     //verifica si la letra existe en palabra
 
@@ -197,7 +152,7 @@ function jugando() {
     }
     if (laLetraNoEsta) {
 
-        vidasRestantes--; //OPTIMIZACION: USO OPERADOR --
+        vidasRestantes--;
 
         document.getElementById('numeroVidas').innerHTML = vidasRestantes;
         document.getElementById('mensajeUsuario').innerHTML = "Esa letra no está en tu palabra"
@@ -222,9 +177,7 @@ function jugando() {
     vidasRestantes == 5 && imagenSegunda();
     vidasRestantes == 3 && imagenMediaVida();
     vidasRestantes == 1 && imagenFinal();
-    vidasRestantes == 0 && perdiste(); //OPTIMIZACION USO OPERADOR LOGICO AND
-
-
+    vidasRestantes == 0 && perdiste();
 }
 
 function perdiste() {
@@ -235,7 +188,7 @@ function perdiste() {
     let mensajeInferior = document.getElementById('mensajeUsuario');
     let mensajeInferiorDos = document.getElementById('segundoMensaje')
     let teclado = document.getElementById('container');
-      
+
     imagenPerdiste();
 
     document.querySelector('#botonInicio').style.display = ('none');
@@ -245,10 +198,11 @@ function perdiste() {
     mensajeInferior.style.color = 'blue';
     mensajeInferior.style.fontSize = '6rem';
     mensajeFinalDos.style.display = "none";
-    mensajeInferiorDos.style.display ='none';
+    mensajeInferiorDos.style.display = 'none';
     let mostrarPalabraFinal = palabraSeleccionada.toUpperCase();
     document.getElementById('palabraAdivina').innerHTML = `${mostrarPalabraFinal}`;
-  
+    let apagaLetra = document.getElementById('letraPP');
+    apagaLetra.style.display = "none";
 }
 
 function ganaste() {
@@ -261,7 +215,7 @@ function ganaste() {
     let teclado = document.getElementById('container');
 
     imagenGanaste();
-    
+
     document.querySelector('#botonInicio').style.display = ('none');
     mensajeInferior.classList.add("rotate-scale-up");
     mensajeInferior.innerHTML = " GANASTE  ツ ";
@@ -269,14 +223,12 @@ function ganaste() {
     mensajeInferior.style.color = 'red';
     mensajeInferior.style.fontSize = '6rem';
     mensajeFinalDos.style.display = "none";
-    mensajeInferiorDos.style.display ='none';
+    mensajeInferiorDos.style.display = 'none';
+    let apagaLetra = document.getElementById('letraPP');
+    apagaLetra.style.display = "none";
 
-   
 
 }
-
-
-
 
 function imagenPerdiste() {
     switch (localStorage.getItem("personaje")) {
@@ -409,6 +361,4 @@ function imagenFinal() {
             falla = document.getElementById("jugando");
             falla.src = 'https://c.tenor.com/J8s7Y4Bu2qYAAAAC/the-end-is-near-homer.gif'; //Homero por defecto
     }
-
-
 }

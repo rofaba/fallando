@@ -1,5 +1,4 @@
 //PERSONAJES LOCAL STORAGE JSON
-
 class Personaje {
     constructor(nombre, edad, ocupacion, personalidad) {
         this.nombre = nombre;
@@ -11,16 +10,12 @@ class Personaje {
 const perso1 = new Personaje("Homero", "39 años", "Técnico Nuclear", "Un poco torpe pero divertido");
 const perso2 = new Personaje("Bart", "10 años", "Estudiante", "Astuto y travieso, siempre ganador");
 const perso3 = new Personaje("Lisa", "8 años", "Estudiante", "Muy responsable, niña genio");
-
 const poolPersonajes = [perso1, perso2, perso3];
-
 const perso1Guardado = JSON.stringify(perso1);
 const perso2Guardado = JSON.stringify(perso2);
 const perso3Guardado = JSON.stringify(perso3);
 
-
 //Seleccion de personaje
-
 let tarjeta1 = document.getElementById("probandoHomero");
 let tarjeta2 = document.getElementById("probandoBart");
 let tarjeta3 = document.getElementById("probandoLisa");
@@ -90,4 +85,3 @@ tarjeta2.addEventListener("mouseover", resaltarBart);
 tarjeta2.addEventListener("mouseleave", normalizarBart);
 tarjeta3.addEventListener("mouseover", resaltarLisa);
 tarjeta3.addEventListener("mouseleave", normalizarLisa);
-

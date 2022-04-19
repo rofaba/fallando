@@ -6,63 +6,42 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Juego del Ahorcado</title>
     <link rel="icon" href="./imagenes/favicon.png">
-
-
-
     <link rel="stylesheet" href="css/estilos.css">
-    <link rel="stylesheet" href="./teclado.css">
-
+    <link rel="stylesheet" href="css/teclado.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Hurricane&family=Poppins:ital,wght@0,400;1,100&display=swap"
         rel="stylesheet">
-
-
 </head>
 
 <body>
     <header>
-
         <div class="contenedorSuperior">
             <div id="indicadorVidas">
                 <p> Intentos disponibles</p>
                 <h1 id="numeroVidas"> 7 </h1>
             </div>
-
             <div class="personajeEnJuego">
-
                 <h3 id="personajeSeleccionado"> personaje </h3>
-            
-
-                    <p id="quotes"></p>
-             
+                <p id="quotes"></p>
             </div>
-
     </header>
-
     <main>
-
         <div class="contenedor">
-            <div >
+            <div>
                 <div class="personajeActivo">
-                        <img id="jugando" src="./imagenes/homer_blanco_negro.webp" alt="Personaje_en_Juego">
+                    <img id="jugando" src="./imagenes/homer_blanco_negro.webp" alt="Personaje_en_Juego">
                 </div>
                 <div>
-                        <h4 id="palabraAdivina"> ________ </h4>
+                    <h4 id="palabraAdivina"> ________ </h4>
                 </div>
             </div>
-           
             <div class="bloqueBusqueda">
-            
-
-                
                 <form name="container" id="container">
                     <input type="text" maxlength="1" id="pantalla" value="">
                     <br>
                     <button id="botonInicio" type="button"> Probar Letra </button>
                     <br>
-                     
-
                     <input type="button" id="letraA" class="borde" value="a"
                         onclick="document.container.pantalla.value='a'">
                     <input type="button" id="letraB" class="borde" value="b"
@@ -119,54 +98,30 @@
                         onclick="document.container.pantalla.value='z'">
                     <input type="button" id="letraPP" class="" value="?">
                 </form>
-
-
             </div>
         </div>
-
         <div class="mensajesJuego">
-
             <h3 id="mensajeUsuario"> Ingresa una letra para comenzar</h3>
             <h3 id="segundoMensaje"> Mucha suerte !!!</h3>
-
         </div>
-
-
         <nav>
-
             <div class='navegacion'>
-
                 <nav class="botonera">
-
                     <button class="barraNav">
-                    <a href="./index.html" class="eleccion">Inicio</a>
-                </button>
+                        <a href="./index.html" class="eleccion">Inicio</a>
+                    </button>
                     <button class="barraNav">
-                    <a href="./personajes.html" class="eleccion">Cambiar Personaje</a>
-                </button>
+                        <a href="./personajes.html" class="eleccion">Cambiar Personaje</a>
+                    </button>
                     <button class="barraNav">
-                    <a href="./ingame.html" class="eleccion">Jugar</a> 
-                </button>
-                
-            </nav>
+                        <a href="./ingame.html" class="eleccion">Jugar</a>
+                    </button>
+                </nav>
             </div>
-        </nav>
-
     </main>
-
-    <footer>Derechos Reservados</footer>
-
-
-
+    <footer></footer>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-
-    <script src="./script.js"></script>
-   
-
-    <!-- <script src="./teclado.js"></script> -->
-    <!-- <script src="./dom.js"> </script> -->
-
+    <script src="js/script.js"></script>
 </body>
 
 </html>
