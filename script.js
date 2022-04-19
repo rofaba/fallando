@@ -103,24 +103,26 @@ document.getElementById('palabraAdivina').innerHTML = completandoPalabra.join(''
 let letraTrampa = document.getElementById('letraPP');
 
 letraTrampa.addEventListener('mouseover', ofreceMuestra);
- function ofreceMuestra(){
+
+function ofreceMuestra() {
 
     document.getElementById('mensajeUsuario').innerHTML = " ¿ QUIERES VER LA SOLUCION ?";
     document.getElementById('segundoMensaje').innerHTML = "CLICK EN BOTON INTERROGACION";
     document.getElementById('mensajeUsuario').style.color = "red";
-    
+
 }
 
- letraTrampa.addEventListener('mouseleave', sacarMuestra);
- function sacarMuestra(){
+letraTrampa.addEventListener('mouseleave', sacarMuestra);
+
+function sacarMuestra() {
 
     document.getElementById('mensajeUsuario').innerHTML = "Ingresa una letra para comenzar";
     document.getElementById('segundoMensaje').innerHTML = "Mucha suerte!";
     document.getElementById('mensajeUsuario').style.color = "black";
- }
+}
 
- letraTrampa.addEventListener('click', () => {
- let palabraEnMayusculas = palabraSeleccionada.toUpperCase();
+letraTrampa.addEventListener('click', () => {
+    let palabraEnMayusculas = palabraSeleccionada.toUpperCase();
     Swal.fire({
         title: `${palabraEnMayusculas}`,
         text: `Es la palabra secreta`,
@@ -129,10 +131,10 @@ letraTrampa.addEventListener('mouseover', ofreceMuestra);
     })
 })
 
-    function muestraPalabra(){
-        alert(palabraSeleccionada);       
+function muestraPalabra() {
+    alert(palabraSeleccionada);
 
-    }
+}
 
 const jugar = document.getElementById('botonInicio');
 jugar.addEventListener('click', jugando); //lanza la función
@@ -155,8 +157,8 @@ function jugando() {
     teclaPulsada.style.backgroundColor = 'grey';
     teclaPulsada.removeAttribute('onclick');
     teclaPulsada.classList.remove('borde');
-    
-    
+
+
 
     //verifica si la letra existe en palabra
 
@@ -228,29 +230,25 @@ function jugando() {
 function perdiste() {
     falla = document.getElementById("jugando");
     falla.classList.add("shake-horizontal");
-
-    imagenPerdiste();
-
     let mensajeFinal = document.getElementById('pantalla');
     let mensajeFinalDos = document.getElementById('botonInicio');
     let mensajeInferior = document.getElementById('mensajeUsuario');
     let mensajeInferiorDos = document.getElementById('segundoMensaje')
-    let marco = document.getElementsByClassName('mensajesJuego');
-
     let teclado = document.getElementById('container');
+      
+    imagenPerdiste();
 
-    teclado.style.display = "none";
-
-    mensajeFinal.style.display = "none";
+    document.querySelector('#botonInicio').style.display = ('none');
+    mensajeInferior.classList.add("scale-in-center");
+    mensajeInferior.innerHTML = " PERDISTE ☹  ";
+    mensajeInferior.style.fontFamily = 'hurricane', 'cursive';
+    mensajeInferior.style.color = 'blue';
+    mensajeInferior.style.fontSize = '6rem';
     mensajeFinalDos.style.display = "none";
-
-
-    mensajeInferior.innerHTML = " PERDISTE ";
+    mensajeInferiorDos.style.display ='none';
     let mostrarPalabraFinal = palabraSeleccionada.toUpperCase();
-    mensajeInferiorDos.innerHTML = `tu palabra era "${mostrarPalabraFinal}"`;
-    mensajeInferior.style.fontSize = "10rem";
-    mensajeInferior.style.color = "red";
-    mensajeInferiorDos.style.color = "red";
+    document.getElementById('palabraAdivina').innerHTML = `${mostrarPalabraFinal}`;
+  
 }
 
 function ganaste() {
@@ -263,17 +261,22 @@ function ganaste() {
     let teclado = document.getElementById('container');
 
     imagenGanaste();
-
-    teclado.style.display = "none";
-    mensajeFinal.style.display = "none";
+    
+    document.querySelector('#botonInicio').style.display = ('none');
+    mensajeInferior.classList.add("rotate-scale-up");
+    mensajeInferior.innerHTML = " GANASTE  ツ ";
+    mensajeInferior.style.fontFamily = 'hurricane', 'cursive';
+    mensajeInferior.style.color = 'red';
+    mensajeInferior.style.fontSize = '6rem';
     mensajeFinalDos.style.display = "none";
-    mensajeInferior.classList.add("text-pop-up-top");
-    mensajeInferior.innerHTML = " GANASTE ";
-    mensajeInferiorDos.innerHTML = "";
-    mensajeInferior.style.fontSize = "10rem";
-    mensajeInferior.style.color = "blue";
-    mensajeInferiorDos.style.color = "blue";
+    mensajeInferiorDos.style.display ='none';
+
+   
+
 }
+
+
+
 
 function imagenPerdiste() {
     switch (localStorage.getItem("personaje")) {
@@ -382,6 +385,7 @@ function imagenSegunda() {
 
 
 }
+
 function imagenFinal() {
     switch (localStorage.getItem("personaje")) {
 
